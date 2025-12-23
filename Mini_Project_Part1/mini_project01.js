@@ -266,35 +266,106 @@ function makeRainbow(image) {
   const height = image.getHeight();
   for (let pixel of image.values()) {
     const y = pixel.getY();
+    const avg = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
     if (y < height / 7) {
-      pixel.setRed(255);
-      pixel.setGreen(0);
-      pixel.setBlue(0);
+      applyRed(pixel, avg);
     } else if (y < (2 * height) / 7) {
-      pixel.setRed(255);
-      pixel.setGreen(127);
-      pixel.setBlue(0);
+      applyOrange(pixel, avg);
     } else if (y < (3 * height) / 7) {
-      pixel.setRed(255);
-      pixel.setGreen(255);
-      pixel.setBlue(0);
+      applyYellow(pixel, avg);
     } else if (y < (4 * height) / 7) {
-      pixel.setRed(0);
-      pixel.setGreen(255);
-      pixel.setBlue(0);
+      applyGreen(pixel, avg);
     } else if (y < (5 * height) / 7) {
-      pixel.setRed(0);
-      pixel.setGreen(0);
-      pixel.setBlue(255);
+      applyBlue(pixel, avg);
     } else if (y < (6 * height) / 7) {
-      pixel.setRed(75);
-      pixel.setGreen(0);
-      pixel.setBlue(130);
+      applyIndigo(pixel, avg);
     } else {
-      pixel.setRed(148);
-      pixel.setGreen(0);
-      pixel.setBlue(211);
+      applyViolet(pixel, avg);
     }
+  }
+}
+
+function applyRed(pixel, avg) {
+  if (avg < 128) {
+    pixel.setRed(2 * avg);
+    pixel.setGreen(0);
+    pixel.setBlue(0);
+  } else {
+    pixel.setRed(255);
+    pixel.setGreen(2 * avg - 255);
+    pixel.setBlue(2 * avg - 255);
+  }
+}
+
+function applyOrange(pixel, avg) {
+  if (avg < 128) {
+    pixel.setRed(2 * avg);
+    pixel.setGreen(0.8 * avg);
+    pixel.setBlue(0);
+  } else {
+    pixel.setRed(255);
+    pixel.setGreen(1.2 * avg - 51);
+    pixel.setBlue(2 * avg - 255);
+  }
+}
+
+function applyYellow(pixel, avg) {
+  if (avg < 128) {
+    pixel.setRed(2 * avg);
+    pixel.setGreen(2 * avg);
+    pixel.setBlue(0);
+  } else {
+    pixel.setRed(255);
+    pixel.setGreen(255);
+    pixel.setBlue(2 * avg - 255);
+  }
+}
+
+function applyGreen(pixel, avg) {
+  if (avg < 128) {
+    pixel.setRed(0);
+    pixel.setGreen(2 * avg);
+    pixel.setBlue(0);
+  } else {
+    pixel.setRed(2 * avg - 255);
+    pixel.setGreen(255);
+    pixel.setBlue(2 * avg - 255);
+  }
+}
+
+function applyBlue(pixel, avg) {
+  if (avg < 128) {
+    pixel.setRed(0);
+    pixel.setGreen(0);
+    pixel.setBlue(2 * avg);
+  } else {
+    pixel.setRed(2 * avg - 255);
+    pixel.setGreen(2 * avg - 255);
+    pixel.setBlue(255);
+  }
+}
+
+function applyIndigo(pixel, avg) {
+  if (avg < 128) {
+    pixel.setRed(0.8 * avg);
+    pixel.setGreen(0);
+    pixel.setBlue(2 * avg);
+  } else {
+    pixel.setRed(1.2 * avg - 51);
+    pixel.setGreen(2 * avg - 255);
+    pixel.setBlue(255);
+  }
+}
+
+function applyViolet(pixel, avg) {
+  if (avg < 128) {
+    pixel.setRed(1.6 * avg);
+    pixel.setGreen(0);
+    pixel.setBlue(1.6 * avg);
+  } else {
+    pixel.setRed(0.4 * avg + 153);
+    pixel.setGreen(2 * avg - 255);
+    pixel.setBlue(0.4 * avg + 153);
   }
 }
 
